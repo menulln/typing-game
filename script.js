@@ -20,6 +20,7 @@ function startGame() {
     }
 
     function stopGame() {
+        gameStarted = false;
         clearInterval(timer);
     }
 }
