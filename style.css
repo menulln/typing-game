@@ -12,19 +12,23 @@
 body {
     display: flex;
     justify-content: center;
-    padding: 200px;
+    padding: 100px;
     background-color: var(--bg-clr);
-    color: var(--text-clr)
+    color: var(--text-clr);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .game {
     width: 50%;
     text-align: center;
     background-color: var(--game-bg-clr);
-}
-
-.game > * {
-    margin-top: 25px;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    border: 1px solid #202020;
+    border-radius: 10px;
+    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.55);
 }
 
 .informations {
