@@ -8,7 +8,16 @@ let gameStarted = false;
 
 function startGame() {
     inputElement.removeEventListener('input', startGame);
-    gameStarted = true
+    gameStarted = true;
+
+    let timeLeft = 12;
+    setInterval(timer, 1000);
+
+
+    function timer() {
+        timeLeft--;
+        timerElement.textContent = `Time left: ${timeLeft}s`;
+    }
 }
 
 inputElement.addEventListener('input', startGame);
