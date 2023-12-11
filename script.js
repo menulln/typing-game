@@ -11,12 +11,16 @@ function startGame() {
     gameStarted = true;
 
     let timeLeft = 12;
-    setInterval(timer, 1000);
+    let timer = setInterval(startTimer, 1000);
 
-
-    function timer() {
+    function startTimer() {
         timeLeft--;
         timerElement.textContent = `Time left: ${timeLeft}s`;
+        if (!timeLeft) stopGame();
+    }
+
+    function stopGame() {
+        clearInterval(timer);
     }
 }
 
