@@ -78,10 +78,15 @@ const words = ['ability','able','about','above','accept','according','account','
 
 function startGame() {
     inputElement.removeEventListener('input', startGame);
+    inputElement.addEventListener('input', checkWord);
     gameStarted = true;
 
     let timeLeft = 12;
     let timer = setInterval(startTimer, 1000);
+
+    let currentWord = '';
+
+    nextWord();
 
     function startTimer() {
         timeLeft--;
@@ -92,6 +97,20 @@ function startGame() {
     function stopGame() {
         gameStarted = false;
         clearInterval(timer);
+    }
+
+    function nextWord() {
+        currentWord = words[Math.floor(Math.random() * words.length)];
+        wordElement.textContent = currentWord;
+    }
+
+    function checkWord() {
+        if (inputElement.value.toLowerCase() === currentWord && gameStarted) {
+            score++;
+            scoreElement.textContent = `Score: ${score}`
+            nextWord();
+            inputElement.value = '';
+        }
     }
 }
 
