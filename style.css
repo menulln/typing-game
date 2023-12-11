@@ -6,4 +6,19 @@
 body {
     display: flex;
     justify-content: center;
+    padding: 200px;
+}
+
+.game {
+    width: 50%;
+    text-align: center;
+}
+
+.game > * {
+    margin-top: 25px;
+}
+
+.informations {
+    display: flex;
+    justify-content: space-between;
 }
