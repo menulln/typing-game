@@ -132,6 +132,7 @@ function startGame() {
     function checkWord() {
         if (inputElement.value.toLowerCase() === currentWord && gameStarted) {
             timeLeft += 4;
+            timerElement.textContent = `Time left: ${timeLeft}s`;
             score++;
             scoreElement.textContent = `Score: ${score}`
             nextWord();
