@@ -6,6 +6,72 @@ const inputElement = document.getElementsByClassName('input')[0];
 let score = 0;
 let gameStarted = false;
 
+wordElement.textContent = words[Math.floor(Math.random() * words.length)].toLowerCase();
+
+function startGame() {
+    inputElement.removeEventListener('input', startGame);
+    inputElement.addEventListener('input', checkWord);
+    gameStarted = true;
+
+    let timeLeft = 6;
+    let timer = setInterval(startTimer, 1000);
+
+    let currentWord = wordElement.textContent;
+
+    function startTimer() {
+        timeLeft--;
+        timerElement.textContent = `Time left: ${timeLeft}s`;
+        if (!timeLeft) stopGame();
+    }
+
+    function stopGame() {
+        inputElement.removeEventListener('input', checkWord);
+        gameStarted = false;
+        clearInterval(timer);
+
+        wordElement.setAttribute('style', 'white-space: pre;')
+        wordElement.textContent = `Game over! :(\r\nScore: ${score}`;
+
+        const restartButton = document.createElement('button');
+        const gameArea = document.querySelector('.game');
+
+        restartButton.textContent = 'Restart';
+        restartButton.style.cssText = 'padding: 5px 25px; font-size: 16px;';
+
+        restartButton.addEventListener('click', restartGame);
+
+        gameArea.insertBefore(restartButton, inputElement);
+        
+        function restartGame() {
+            score = 0;
+            scoreElement.textContent = `Score: ${score}`
+            nextWord();
+            inputElement.value = '';
+
+            inputElement.addEventListener('input', startGame);
+            restartButton.remove();
+        }
+    }
+
+    function nextWord() {
+        currentWord = words[Math.floor(Math.random() * words.length)].toLowerCase();
+        wordElement.textContent = currentWord;
+    }
+
+    function checkWord() {
+        if (inputElement.value.toLowerCase() === currentWord && gameStarted) {
+            timeLeft += 2;
+            timerElement.textContent = `Time left: ${timeLeft}s`;
+            score++;
+            scoreElement.textContent = `Score: ${score}`
+            nextWord();
+            inputElement.value = '';
+        }
+    }
+}
+
+inputElement.addEventListener('input', startGame);
+
 const words = ['ability','able','about','above','accept','according','account','across','act','action','activity',
             'actually','add','address','administration','admit','adult','affect','after','again','against','age','agency','agent',
             'ago','agree','agreement','ahead','air','all','allow','almost','alone','along','already','also','although','always',
@@ -75,70 +141,3 @@ const words = ['ability','able','about','above','accept','according','account','
             'while','white','who','whole','whom','whose','why','wide','wife','will','win','wind','window','wish','with','within',
             'without','woman','wonder','word','work','worker','world','worry','would','write','writer','wrong','yard','yeah','year',
             'yes','yet','you','young','your','yourself'];
-
-wordElement.textContent = words[Math.floor(Math.random() * words.length)].toLowerCase();
-
-function startGame() {
-    inputElement.removeEventListener('input', startGame);
-    inputElement.addEventListener('input', checkWord);
-    gameStarted = true;
-
-    let timeLeft = 6;
-    let timer = setInterval(startTimer, 1000);
-
-    let currentWord = wordElement.textContent;
-
-    function startTimer() {
-        timeLeft--;
-        timerElement.textContent = `Time left: ${timeLeft}s`;
-        if (!timeLeft) stopGame();
-    }
-
-    function stopGame() {
-        inputElement.removeEventListener('input', checkWord);
-        gameStarted = false;
-        clearInterval(timer);
-
-        wordElement.setAttribute('style', 'white-space: pre;')
-        wordElement.textContent = `Game over! :(\r\nScore: ${score}`;
-
-        const restartButton = document.createElement('button');
-        const gameArea = document.querySelector('.game');
-
-        restartButton.textContent = 'Restart';
-        restartButton.style.cssText = 'padding: 5px 25px; font-size: 16px;';
-
-        restartButton.addEventListener('click', restartGame);
-
-        gameArea.insertBefore(restartButton, inputElement);
-        
-
-        function restartGame() {
-            score = 0;
-            scoreElement.textContent = `Score: ${score}`
-            nextWord();
-            inputElement.value = '';
-
-            inputElement.addEventListener('input', startGame);
-            restartButton.remove();
-        }
-    }
-
-    function nextWord() {
-        currentWord = words[Math.floor(Math.random() * words.length)].toLowerCase();
-        wordElement.textContent = currentWord;
-    }
-
-    function checkWord() {
-        if (inputElement.value.toLowerCase() === currentWord && gameStarted) {
-            timeLeft += 2;
-            timerElement.textContent = `Time left: ${timeLeft}s`;
-            score++;
-            scoreElement.textContent = `Score: ${score}`
-            nextWord();
-            inputElement.value = '';
-        }
-    }
-}
-
-inputElement.addEventListener('input', startGame);
