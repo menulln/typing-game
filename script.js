@@ -76,6 +76,8 @@ const words = ['ability','able','about','above','accept','according','account','
             'without','woman','wonder','word','work','worker','world','worry','would','write','writer','wrong','yard','yeah','year',
             'yes','yet','you','young','your','yourself'];
 
+wordElement.textContent = words[Math.floor(Math.random() * words.length)];
+
 function startGame() {
     inputElement.removeEventListener('input', startGame);
     inputElement.addEventListener('input', checkWord);
@@ -84,9 +86,7 @@ function startGame() {
     let timeLeft = 10;
     let timer = setInterval(startTimer, 1000);
 
-    let currentWord = '';
-
-    nextWord();
+    let currentWord = wordElement.textContent;
 
     function startTimer() {
         timeLeft--;
