@@ -76,7 +76,7 @@ const words = ['ability','able','about','above','accept','according','account','
             'without','woman','wonder','word','work','worker','world','worry','would','write','writer','wrong','yard','yeah','year',
             'yes','yet','you','young','your','yourself'];
 
-wordElement.textContent = words[Math.floor(Math.random() * words.length)];
+wordElement.textContent = words[Math.floor(Math.random() * words.length)].toLowerCase();
 
 function startGame() {
     inputElement.removeEventListener('input', startGame);
@@ -100,7 +100,7 @@ function startGame() {
     }
 
     function nextWord() {
-        currentWord = words[Math.floor(Math.random() * words.length)];
+        currentWord = words[Math.floor(Math.random() * words.length)].toLowerCase();
         wordElement.textContent = currentWord;
     }
 
