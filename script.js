@@ -95,8 +95,33 @@ function startGame() {
     }
 
     function stopGame() {
+        inputElement.removeEventListener('input', checkWord);
         gameStarted = false;
         clearInterval(timer);
+
+        wordElement.setAttribute('style', 'white-space: pre;')
+        wordElement.textContent = `Game over! :(\r\nScore: ${score}`;
+
+        const restartButton = document.createElement('button');
+        const gameArea = document.querySelector('.game');
+
+        restartButton.textContent = 'Restart';
+        restartButton.style.cssText = 'padding: 5px 25px; font-size: 16px;';
+
+        restartButton.addEventListener('click', restartGame);
+
+        gameArea.insertBefore(restartButton, inputElement);
+        
+
+        function restartGame() {
+            score = 0;
+            scoreElement.textContent = `Score: ${score}`
+            nextWord();
+            inputElement.value = '';
+
+            inputElement.addEventListener('input', startGame);
+            restartButton.remove();
+        }
     }
 
     function nextWord() {
